@@ -25,6 +25,16 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONT
     apt-get install -y wget && \
     apt install -y python3 && \
     apt update && \
-    apt install -y software-properties-common
+    apt install -y software-properties-common && \
+    add-apt-repository universe && \
+    dpkg --add-architecture i386 && \
+    apt-get install -y libncurses5 && \
+    apt-get install -y libncurses-dev && \
+    wget https://buildroot.org/downloads/buildroot-2023.11.tar.gz && \
+    tar -xf buildroot-2023.11.tar.gz && \
+    rm buildroot-2023.11.tar.gz && \
+    mkdir volumeOutput
 
-CMD /bin/bash
+
+CMD cd buildroot-2023.11; \
+    /bin/bash
