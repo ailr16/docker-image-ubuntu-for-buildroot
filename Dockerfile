@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 WORKDIR /buildroot
 
@@ -24,15 +24,7 @@ RUN apt-get update && \
     apt-get install -y wget && \
     apt install -y python3 && \
     apt update && \
-    apt install -y software-properties-common && \
-    add-apt-repository universe && \
-    dpkg --add-architecture i386 && \
-    apt-get install -y libncurses5 && \
-    apt-get install -y libncurses-dev && \
-    wget https://buildroot.org/downloads/buildroot-2023.11.tar.gz && \
-    tar -xf buildroot-2023.11.tar.gz && \
-    rm buildroot-2023.11.tar.gz && \
-    mkdir volumeOutput
+    apt install -y software-properties-common
 
 CMD cd buildroot-2023.11; \
     /bin/bash
