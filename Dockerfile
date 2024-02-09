@@ -2,7 +2,8 @@ FROM ubuntu:20.04
 
 WORKDIR /buildroot
 
-RUN apt-get update && \
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone && \
+    apt-get update && \
     apt-get install -y make && \
     apt-get install -y binutils && \
     apt-get install -y build-essential && \
@@ -26,5 +27,4 @@ RUN apt-get update && \
     apt update && \
     apt install -y software-properties-common
 
-CMD cd buildroot-2023.11; \
-    /bin/bash
+CMD /bin/bash
