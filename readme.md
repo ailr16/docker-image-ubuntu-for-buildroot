@@ -1,30 +1,36 @@
 # Ubuntu for buildroot (Docker image)
 Here are files related to building image. This is the result of many attempts for building a buildroot image for Raspberry Pi using Manjaro (6.6.10-1-MANJARO).
 
-Ive tested on same Manjaro setup and Windows 11 Pro
+I've tested on Windows 11 Pro
+
+<mark>The container provides the environment to build the image using:
+- <mark>Ubuntu 20.04
+- <mark>Buildroot 2023.11
+
 
 ## Building docker image
-- In the repository directory:
+- In the repo directory:
     ```
     docker build -t ubuntu-for-buildroot . 
     ```
 
 ## Run the container
-
-- By default the container creates a output folder in
+- Run my latest version in interactive mode:
     ```
-    /buildroot/volumeOutput
-    ```
-    So run the container with a volume referenced to that directory:
-    ```
-    docker run --name testing1 -v $(pwd)/OutputImg:/buildroot/volumeOutput -it ubuntu-for-buildroot 
-    ```
-- It runs in interactive mode, so use make for configure and start building
-
-- When the image building finishes, copy that *img to /buildroot/volumeOutput:
-    ```
-    cp output/images/sdcard.img ../volumeOutput
+    docker run -it ailr16/ubuntu-for-buildroot
     ```
 
-- The image will be accessible in the host
+- Or run with a volume:
+    ```
+    docker run --name <containerId> -v <path_in_host>:/buildroot/buildroot-2023.11/output/images -it ailr16/ubuntu-for-buildroot
+    ```
+
+## Get the output files
+- For example, for Raspberry Pi the output image will be in /buildroot/buildroot-2023.11/output/images/, so copy with:
+    ```
+    docker cp <containerId>:/buildroot/buildroot-2023.11/output/images/sdcard.img <path_in_host>
+    ```
+
+- If you used the volume way, just go to the host specified directory
+
 ![Output image](/media/image_output.png)

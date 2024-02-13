@@ -33,8 +33,10 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONT
     wget https://buildroot.org/downloads/buildroot-2023.11.tar.gz && \
     tar -xf buildroot-2023.11.tar.gz && \
     rm buildroot-2023.11.tar.gz && \
-    mkdir volumeOutput
-
+    cd buildroot-2023.11 && \
+    mkdir output && \
+    cd output && \
+    mkdir images
 
 CMD cd buildroot-2023.11; \
     /bin/bash
